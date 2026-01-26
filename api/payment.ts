@@ -18,8 +18,10 @@ export default async function handler(req: Request) {
   try {
     const { amount, description, metadata } = await req.json();
     const idempotenceKey = crypto.randomUUID();
+    
+    // Используем origin и добавляем параметр успеха к корню сайта
     const origin = req.headers.get('origin') || new URL(req.url).origin;
-    const returnUrl = `${origin}/success.html`;
+    const returnUrl = `${origin}/?payment=success`;
 
     const response = await fetch('https://api.yookassa.ru/v3/payments', {
       method: 'POST',
@@ -43,7 +45,6 @@ export default async function handler(req: Request) {
           name: String(metadata?.name || 'Guest'),
           email: String(metadata?.email || 'No email')
         },
-        // ДОБАВЛЕН ОБЪЕКТ ЧЕКА (ФИСКАЛИЗАЦИЯ)
         receipt: {
           customer: {
             email: String(metadata?.email)
@@ -56,7 +57,7 @@ export default async function handler(req: Request) {
                 value: String(amount),
                 currency: 'RUB'
               },
-              vat_code: "1", // 1 — без НДС. 2 — 0%, 3 — 10%, 4 — 20%
+              vat_code: "1",
               payment_mode: "full_payment",
               payment_subject: "service"
             }

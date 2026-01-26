@@ -26,9 +26,16 @@ import {
 const App: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '' });
 
   useEffect(() => {
+    // Проверяем URL на наличие параметра успеха
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('payment') === 'success') {
+      setShowSuccess(true);
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -49,7 +56,6 @@ const App: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // МЕСТО 1: ТУТ МЫ ВЫСТАВЛЯЕМ СУММУ ДЛЯ ОПЛАТЫ (ЛОГИКА)
           amount: "50.00", 
           description: `Обучение VIP AI-COMMUNITY: ${formData.email}`,
           metadata: { name: formData.name, email: formData.email }
@@ -61,7 +67,7 @@ const App: React.FC = () => {
       if (response.ok && data.confirmation_url) {
         window.location.href = data.confirmation_url;
       } else {
-        throw new Error(data.error || 'Ошибка сервера ЮKassa. Проверьте Shop ID и Secret Key в настройках Vercel.');
+        throw new Error(data.error || 'Ошибка сервера ЮKassa.');
       }
     } catch (error: any) {
       console.error('Payment error:', error);
@@ -70,6 +76,46 @@ const App: React.FC = () => {
       setIsLoading(false);
     }
   };
+
+  if (showSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 bg-mesh">
+        <div className="glass-card p-10 md:p-16 rounded-[3rem] text-center max-w-xl w-full glow-fuchsia animate-float">
+          <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(34,197,94,0.4)]">
+            <CheckCircle2 className="w-12 h-12 text-white" />
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl font-black mb-6 tracking-tighter uppercase italic">
+            ОПЛАТА <span className="text-fuchsia-500">ПРОШЛА!</span>
+          </h1>
+          
+          <p className="text-gray-400 text-lg mb-10 leading-relaxed">
+            Поздравляем! Вы стали частью элитного сообщества ИИ-креаторов. <br/>
+            Все инструкции и доступы отправлены на ваш e-mail.
+          </p>
+
+          <a 
+            href="https://t.me/+ВАША_ССЫЛКА" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-block w-full bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_40px_rgba(217,70,239,0.3)] hover:opacity-90 active:scale-95"
+          >
+            ЗАБРАТЬ ОБУЧЕНИЕ
+          </a>
+
+          <button 
+            onClick={() => {
+              window.history.replaceState({}, '', '/');
+              setShowSuccess(false);
+            }}
+            className="mt-8 text-gray-500 text-sm font-bold uppercase tracking-widest hover:text-white transition-colors"
+          >
+            Вернуться на сайт
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const galleryImages = [
     "https://picsum.photos/seed/ai-art-1/600/800",
@@ -149,7 +195,6 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center gap-6">
             <div className="glass-card px-8 py-4 rounded-2xl border-fuchsia-500/30 glow-accent-box animate-pulse">
                <span className="text-gray-400 line-through text-lg mr-3">5.000₽</span>
-               {/* МЕСТО 2: ВИЗУАЛЬНАЯ ЦЕНА В ГЛАВНОМ БЛОКЕ */}
                <span className="text-3xl font-black text-white">50₽</span>
                <div className="text-[10px] uppercase tracking-tighter text-fuchsia-400 font-bold mt-1">Осталось 7 мест по этой цене</div>
             </div>
@@ -289,7 +334,6 @@ const App: React.FC = () => {
          <div className="max-w-4xl mx-auto px-6">
             <div className="glass-card p-8 md:p-12 rounded-[2rem] border-fuchsia-500/20 text-center relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-fuchsia-600/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-               {/* МЕСТО 3: ВИЗУАЛЬНАЯ ЦЕНА В ИНФОРМАЦИОННОЙ КАРТОЧКЕ */}
                <p className="text-xl md:text-2xl font-bold text-gray-200 mb-0">
                   Стоимость ВСЕГО <span className="text-fuchsia-500 font-black text-3xl mx-2">50 рублей</span> за полноценное обучение 
                </p>
@@ -319,7 +363,7 @@ const App: React.FC = () => {
                   placeholder="Ваше имя" 
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold text-white placeholder:text-gray-600"
                  />
                </div>
                <div className="relative">
@@ -329,7 +373,7 @@ const App: React.FC = () => {
                   placeholder="Ваш E-mail" 
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold"
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold text-white placeholder:text-gray-600"
                  />
                </div>
                <button 
