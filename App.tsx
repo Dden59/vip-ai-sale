@@ -115,14 +115,14 @@ const App: React.FC = () => {
     );
   }
 
-  // СПИСОК ВАШИХ КАРТИНОК ИЗ ПАПКИ assets
+  // ОБНОВЛЕННЫЕ ПУТИ К ВАШИМ КАРТИНКАМ (ОТНОСИТЕЛЬНЫЕ)
   const galleryImages = [
-    "/assets/art1.jpg",
-    "/assets/art2.jpg",
-    "/assets/art3.jpg",
-    "/assets/art4.jpg",
-    "/assets/art5.jpg",
-    "/assets/art6.jpg",
+    "./assets/art1.jpg",
+    "./assets/art2.jpg",
+    "./assets/art3.jpg",
+    "./assets/art4.jpg",
+    "./assets/art5.jpg",
+    "./assets/art6.jpg",
   ];
 
   const benefits = [
@@ -210,11 +210,14 @@ const App: React.FC = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-fuchsia-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
             <div className="relative glass-card rounded-[2rem] p-4 overflow-hidden shadow-2xl">
               <img 
-                src="/assets/hero.jpg" 
+                src="./assets/hero.jpg" 
                 alt="AI Masterpiece" 
                 className="w-full h-auto rounded-xl object-cover aspect-video animate-float"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://picsum.photos/seed/vipai-hero/1200/600";
+                  const target = e.target as HTMLImageElement;
+                  if (!target.src.includes('picsum.photos')) {
+                    target.src = "https://picsum.photos/seed/vipai-hero/1200/600";
+                  }
                 }}
               />
             </div>
@@ -239,8 +242,12 @@ const App: React.FC = () => {
                   src={src} 
                   alt={`AI Example ${i}`} 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" 
+                  loading="lazy"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = `https://picsum.photos/seed/ai-art-${i}/600/800`;
+                    const target = e.target as HTMLImageElement;
+                    if (!target.src.includes('picsum.photos')) {
+                       target.src = `https://picsum.photos/seed/ai-art-${i % 6}/600/800`;
+                    }
                   }}
                 />
               </div>
