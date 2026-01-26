@@ -30,11 +30,9 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '' });
 
   useEffect(() => {
-    // Перехватываем параметр успеха из URL
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('payment') === 'success') {
       setShowSuccess(true);
-      // Очищаем URL от параметров, чтобы при обновлении страницы не висел экран успеха
       window.history.replaceState({}, '', '/');
     }
 
@@ -58,7 +56,7 @@ const App: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: "1490.00", // ФИНАЛЬНАЯ ЦЕНА ДЛЯ ОПЛАТЫ
+          amount: "1490.00", 
           description: `Обучение VIP AI-COMMUNITY: ${formData.email}`,
           metadata: { name: formData.name, email: formData.email }
         }),
@@ -79,7 +77,6 @@ const App: React.FC = () => {
     }
   };
 
-  // ЭКРАН ПОСЛЕ УСПЕШНОЙ ОПЛАТЫ
   if (showSuccess) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-mesh">
@@ -101,7 +98,7 @@ const App: React.FC = () => {
             href="https://t.me/+uTJ_A7Z7yh8zY2Ji" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_40px_rgba(217,70,239,0.3)] hover:opacity-90 active:scale-95"
+            className="inline-block w-full items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_40px_rgba(217,70,239,0.3)] hover:opacity-90 active:scale-95"
           >
             <Zap className="w-6 h-6 fill-white" />
             ВСТУПИТЬ В КАНАЛ
@@ -118,13 +115,14 @@ const App: React.FC = () => {
     );
   }
 
+  // СПИСОК ВАШИХ КАРТИНОК ИЗ ПАПКИ assets
   const galleryImages = [
-    "https://picsum.photos/seed/ai-art-1/600/800",
-    "https://picsum.photos/seed/ai-art-2/600/800",
-    "https://picsum.photos/seed/ai-art-3/600/800",
-    "https://picsum.photos/seed/ai-art-4/600/800",
-    "https://picsum.photos/seed/ai-art-5/600/800",
-    "https://picsum.photos/seed/ai-art-6/600/800",
+    "/assets/art1.jpg",
+    "/assets/art2.jpg",
+    "/assets/art3.jpg",
+    "/assets/art4.jpg",
+    "/assets/art5.jpg",
+    "/assets/art6.jpg",
   ];
 
   const benefits = [
@@ -212,9 +210,12 @@ const App: React.FC = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-fuchsia-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
             <div className="relative glass-card rounded-[2rem] p-4 overflow-hidden shadow-2xl">
               <img 
-                src="https://picsum.photos/seed/vipai-hero/1200/600" 
+                src="/assets/hero.jpg" 
                 alt="AI Masterpiece" 
                 className="w-full h-auto rounded-xl object-cover aspect-video animate-float"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://picsum.photos/seed/vipai-hero/1200/600";
+                }}
               />
             </div>
           </div>
@@ -238,6 +239,9 @@ const App: React.FC = () => {
                   src={src} 
                   alt={`AI Example ${i}`} 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" 
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = `https://picsum.photos/seed/ai-art-${i}/600/800`;
+                  }}
                 />
               </div>
             ))}
