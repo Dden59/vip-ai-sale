@@ -8,21 +8,17 @@ export default async function handler(req: Request) {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
   }
 
-  // Очищаем ключи от возможных пробелов при копировании
   const shopId = process.env.YOOKASSA_SHOP_ID?.trim();
   const secretKey = process.env.YOOKASSA_SECRET_KEY?.trim();
 
   if (!shopId || !secretKey) {
-    return new Response(JSON.stringify({ error: 'Ключи ЮKassa не найдены в Environment Variables (Vercel Settings)' }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'Ключи ЮKassa не найдены в настройках Vercel' }), { status: 500 });
   }
 
   try {
     const { amount, description, metadata } = await req.json();
     const idempotenceKey = crypto.randomUUID();
-
-    // Определяем базовый URL для возврата
     const origin = req.headers.get('origin') || new URL(req.url).origin;
-    // ЮKassa требует явное указание .html если файл так называется
     const returnUrl = `${origin}/success.html`;
 
     const response = await fetch('https://api.yookassa.ru/v3/payments', {
@@ -34,19 +30,37 @@ export default async function handler(req: Request) {
       },
       body: JSON.stringify({
         amount: {
-          value: String(amount), // Значение должно быть строкой
+          value: String(amount),
           currency: 'RUB',
         },
-        capture: true, // Автоматическое списание
+        capture: true,
         confirmation: {
           type: 'redirect',
           return_url: returnUrl,
         },
         description: description || 'Обучение AI-COMMUNITY',
-        // ЮKassa требует, чтобы в метаданных были только строки
         metadata: {
           name: String(metadata?.name || 'Guest'),
           email: String(metadata?.email || 'No email')
+        },
+        // ДОБАВЛЕН ОБЪЕКТ ЧЕКА (ФИСКАЛИЗАЦИЯ)
+        receipt: {
+          customer: {
+            email: String(metadata?.email)
+          },
+          items: [
+            {
+              description: description || 'Обучение AI-COMMUNITY',
+              quantity: "1.00",
+              amount: {
+                value: String(amount),
+                currency: 'RUB'
+              },
+              vat_code: "1", // 1 — без НДС. 2 — 0%, 3 — 10%, 4 — 20%
+              payment_mode: "full_payment",
+              payment_subject: "service"
+            }
+          ]
         }
       }),
     });
@@ -54,7 +68,6 @@ export default async function handler(req: Request) {
     const data = await response.json();
 
     if (!response.ok) {
-      // Логируем подробности ошибки в консоль Vercel для диагностики
       console.error('Yookassa Error Detail:', JSON.stringify(data, null, 2));
       return new Response(JSON.stringify({ 
         error: `ЮKassa: ${data.description || data.code || 'Ошибка запроса'}` 
