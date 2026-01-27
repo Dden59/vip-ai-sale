@@ -115,7 +115,7 @@ const App: React.FC = () => {
     );
   }
 
-  // ОБНОВЛЕННЫЕ ПУТИ К ВАШИМ КАРТИНКАМ (ОТНОСИТЕЛЬНЫЕ)
+  // ПУТИ БЕЗ ТОЧЕК (ДЛЯ ПАПКИ PUBLIC/ASSETS)
   const galleryImages = [
     "/assets/art1.jpg",
     "/assets/art2.jpg",
@@ -186,10 +186,18 @@ const App: React.FC = () => {
             <span className="gradient-text">ИИ-КРЕАТОРОВ</span>
           </h1>
           
-          <p className="text-xl md:text-3xl text-gray-400 max-w-4xl mx-auto mb-10 font-medium">
-            Прекратите постоянно платить за генерации. <br className="hidden md:block" />
-            <span className="text-white font-black">Начните создавать топовые фото БЕСПЛАТНО.</span>
-          </p>
+          {/* ОБНОВЛЕННЫЙ ТЕКСТ С АКЦЕНТАМИ */}
+          <div className="max-w-4xl mx-auto mb-10 space-y-4">
+            <p className="text-xl md:text-2xl text-gray-300 font-medium leading-tight">
+              Прекратите постоянно платить за генерации. Начните создавать топовые фото и видео <span className="text-white font-black underline decoration-fuchsia-500 decoration-2 underline-offset-4">БЕСПЛАТНО</span>. 
+            </p>
+            <p className="text-lg md:text-xl text-gray-400">
+              Я готова поделиться с вами <span className="text-fuchsia-400 font-bold">секретными площадками</span>, где за генерации не нужно платить. 
+            </p>
+            <p className="text-lg md:text-xl text-gray-400 leading-relaxed">
+              А также предоставлю вам полноценное обучение и научу делать безумно крутые промты, с которыми ваши фото будут <span className="text-white font-black uppercase tracking-wider">уникальными</span>, <span className="text-white font-black uppercase tracking-wider">реалистичными</span> и будут собирать <span className="bg-gradient-to-r from-blue-400 to-fuchsia-500 text-white px-2 py-1 rounded-lg font-black italic">100.000+ ЛАЙКОВ 🔥</span>
+            </p>
+          </div>
 
           <div className="flex flex-col items-center gap-6">
             <div className="glass-card px-8 py-4 rounded-2xl border-fuchsia-500/30 glow-accent-box animate-pulse">
