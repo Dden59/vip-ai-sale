@@ -20,7 +20,8 @@ import {
   MessageSquareHeart,
   Gift,
   ZapIcon,
-  Loader2
+  Loader2,
+  Headphones
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -115,7 +116,6 @@ const App: React.FC = () => {
     );
   }
 
-  // ПУТИ БЕЗ ТОЧЕК (ДЛЯ ПАПКИ PUBLIC/ASSETS)
   const galleryImages = [
     "/assets/art1.jpg",
     "/assets/art2.jpg",
@@ -186,8 +186,7 @@ const App: React.FC = () => {
             <span className="gradient-text">ИИ-КРЕАТОРОВ</span>
           </h1>
           
-          {/* ОБНОВЛЕННЫЙ ТЕКСТ С АКЦЕНТАМИ */}
-          <div className="max-w-4xl mx-auto mb-10 space-y-4">
+          <div className="max-w-4xl mx-auto mb-10 space-y-4 px-4">
             <p className="text-xl md:text-2xl text-gray-300 font-medium leading-tight">
               Прекратите постоянно платить за генерации. Начните создавать топовые фото и видео <span className="text-white font-black underline decoration-fuchsia-500 decoration-2 underline-offset-4">БЕСПЛАТНО</span>. 
             </p>
@@ -375,7 +374,7 @@ const App: React.FC = () => {
               ВАШ НОВЫЙ ЭТАП <br /> <span className="gradient-text">НАЧИНАЕТСЯ ЗДЕСЬ</span>
             </h2>
 
-            <form className="max-w-md mx-auto space-y-5 mb-12 relative z-10" onSubmit={handlePayment}>
+            <form className="max-w-md mx-auto space-y-5 mb-8 relative z-10" onSubmit={handlePayment}>
                <div className="relative">
                  <input 
                   type="text" 
@@ -411,6 +410,19 @@ const App: React.FC = () => {
                  )}
                </button>
             </form>
+
+            {/* НОВАЯ КНОПКА ТЕХПОДДЕРЖКИ */}
+            <div className="max-w-md mx-auto mb-16 px-4">
+              <a 
+                href="https://t.me/adm_ria" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-gray-400 py-4 rounded-2xl font-bold text-sm uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all active:scale-95 group"
+              >
+                <Headphones className="w-5 h-5 group-hover:animate-bounce" />
+                Связаться с техподдержкой
+              </a>
+            </div>
 
             <div className="grid grid-cols-2 gap-8 max-w-sm mx-auto border-t border-white/10 pt-12 mb-16">
                <div className="text-center">
