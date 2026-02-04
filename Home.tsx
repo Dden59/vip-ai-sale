@@ -8,6 +8,7 @@ const Home: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '' });
 
   useEffect(() => {
@@ -25,6 +26,10 @@ const Home: React.FC = () => {
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isAgreed) {
+      alert('Пожалуйста, подтвердите согласие с офертой и политикой конфиденциальности');
+      return;
+    }
     if (!formData.name || !formData.email) {
       alert('Пожалуйста, заполните все поля');
       return;
@@ -254,7 +259,22 @@ const Home: React.FC = () => {
                <div className="relative">
                  <input type="email" required placeholder="Ваш E-mail" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold text-white placeholder:text-gray-600" />
                </div>
-               <button disabled={isLoading} type="submit" className="w-full bg-white text-black py-6 rounded-2xl font-black text-2xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-fuchsia-600 hover:text-white transition-all shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:scale-95 flex items-center justify-center gap-3 group disabled:opacity-70 disabled:cursor-not-allowed">
+               
+               {/* ЧЕКБОКС СОГЛАСИЯ */}
+               <div className="flex items-start gap-3 text-left px-2">
+                 <input 
+                   type="checkbox" 
+                   id="agreement" 
+                   checked={isAgreed}
+                   onChange={(e) => setIsAgreed(e.target.checked)}
+                   className="mt-1 w-5 h-5 accent-fuchsia-500 bg-white/5 border-white/10 rounded cursor-pointer"
+                 />
+                 <label htmlFor="agreement" className="text-xs md:text-sm text-gray-400 leading-tight cursor-pointer select-none">
+                   Я принимаю условия <Link to="/offer" className="text-white hover:text-fuchsia-500 underline decoration-1 underline-offset-2 transition-colors">публичной оферты</Link> и даю согласие на обработку персональных данных согласно <Link to="/privacy" className="text-white hover:text-fuchsia-500 underline decoration-1 underline-offset-2 transition-colors">политике конфиденциальности</Link>
+                 </label>
+               </div>
+
+               <button disabled={isLoading || !isAgreed} type="submit" className="w-full bg-white text-black py-6 rounded-2xl font-black text-2xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-fuchsia-600 hover:text-white transition-all shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:scale-95 flex items-center justify-center gap-3 group disabled:opacity-50 disabled:cursor-not-allowed disabled:grayscale">
                  {isLoading ? ( <Loader2 className="w-8 h-8 animate-spin" /> ) : ( <> <CreditCard className="w-6 h-6 group-hover:rotate-12 transition-transform" /> КРУТО! Я ХОЧУ! </> )}
                </button>
             </form>
@@ -307,6 +327,17 @@ const Home: React.FC = () => {
                 <Link to="/offer" className="hover:text-fuchsia-500 transition-colors">Публичная оферта</Link>
                 <Link to="/privacy" className="hover:text-blue-500 transition-colors">Политика конфиденциальности</Link>
              </div>
+          </div>
+          
+          {/* ЮРИДИЧЕСКАЯ ИНФОРМАЦИЯ */}
+          <div className="mt-8 pt-8 border-t border-white/5 text-[10px] text-gray-700 font-mono space-y-1">
+             <p>ИП МАЛЬКОВ ДЕНИС ЮРЬЕНЫЧ</p>
+             <p>ИНН: 590586790678 | ОГРН: 321595800058750</p>
+             <p>
+               <a href="mailto:marshellebregel3@mail.ru" className="hover:text-gray-500 transition-colors">marshellebregel3@mail.ru</a>
+               <span className="mx-2">|</span>
+               <a href="tel:+79934434612" className="hover:text-gray-500 transition-colors">+7 (993) 443-46-12</a>
+             </p>
           </div>
         </div>
       </footer>
