@@ -8,8 +8,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<div style={{color: 'white', padding: '50px', fontSize: '30px'}}>ПРОВЕРКА СВЯЗИ: ГЛАВНАЯ РАБОТАЕТ</div>} />
-        <Route path="/home-test" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/offer" element={<Offer />} />
         <Route path="/privacy" element={<Privacy />} />
       </Routes>
