@@ -41,7 +41,7 @@ const Home: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount: "1490.00", 
-          description: `Обучение VIP AI-COMMUNITY: ${formData.email}`,
+          description: `Обучение ВИП ИИ-СООБЩЕСТВО: ${formData.email}`,
           metadata: { name: formData.name, email: formData.email }
         }),
       });
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
             ОПЛАТА <br/> <span className="text-fuchsia-500">ПРИНЯТА!</span>
           </h1>
           <p className="text-gray-400 text-lg mb-10 leading-relaxed font-medium">
-            Добро пожаловать в VIP AI-COMMUNITY! <br/>
+            Добро пожаловать в ВИП ИИ-СООБЩЕСТВО! <br/>
             Вы сделали правильный выбор. Все материалы уже ждут вас в закрытом канале.
           </p>
           <a href="https://t.me/+uTJ_A7Z7yh8zY2Ji" target="_blank" rel="noopener noreferrer" className="inline-block w-full items-center justify-center gap-3 bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white py-6 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-[0_20px_40px_rgba(217,70,239,0.3)] hover:opacity-90 active:scale-95">
@@ -103,7 +103,7 @@ const Home: React.FC = () => {
               <Sparkles className="text-white w-6 h-6" />
             </div>
             <span className="text-xl font-black tracking-tighter uppercase transition-all group-hover:tracking-widest">
-              VIP <span className="text-fuchsia-500">AI-COMMUNITY</span>
+              ВИП <span className="text-fuchsia-500">ИИ-СООБЩЕСТВО</span>
             </span>
           </div>
           <button className="hidden md:block bg-white/5 hover:bg-white/10 border border-white/10 px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all hover:scale-105 active:scale-95">
@@ -148,7 +148,7 @@ const Home: React.FC = () => {
           <div className="mt-24 relative max-w-4xl mx-auto group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-fuchsia-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
             <div className="relative glass-card rounded-[2rem] p-4 overflow-hidden shadow-2xl">
-              <img src="/assets/hero.jpg" alt="AI Masterpiece" className="w-full h-auto rounded-xl object-cover aspect-video animate-float" onError={(e) => { const target = e.target as HTMLImageElement; if (!target.src.includes('picsum.photos')) { target.src = "https://picsum.photos/seed/vipai-hero/1200/600"; } }} />
+              <img src="/assets/hero.jpg" alt="ИИ Шедевр" className="w-full h-auto rounded-xl object-cover aspect-video animate-float" onError={(e) => { const target = e.target as HTMLImageElement; if (!target.src.includes('picsum.photos')) { target.src = "https://picsum.photos/seed/vipai-hero/1200/600"; } }} />
             </div>
           </div>
         </div>
@@ -166,7 +166,7 @@ const Home: React.FC = () => {
           <div className="flex gap-6 animate-scroll min-w-full">
             {[...galleryImages, ...galleryImages].map((src, i) => (
               <div key={i} className="flex-none w-[280px] md:w-[350px] aspect-[3/4] rounded-[2rem] overflow-hidden glass-card group">
-                <img src={src} alt={`AI Example ${i}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" loading="lazy" onError={(e) => { const target = e.target as HTMLImageElement; if (!target.src.includes('picsum.photos')) { target.src = `https://picsum.photos/seed/ai-art-${i % 6}/600/800`; } }} />
+                <img src={src} alt={`Пример ИИ ${i}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100" loading="lazy" onError={(e) => { const target = e.target as HTMLImageElement; if (!target.src.includes('picsum.photos')) { target.src = `https://picsum.photos/seed/ai-art-${i % 6}/600/800`; } }} />
               </div>
             ))}
           </div>
@@ -181,7 +181,7 @@ const Home: React.FC = () => {
                 Вы устали отдавать <br /> <span className="glow-accent uppercase tracking-tighter">ДЕНЬГИ ЗА ПОДПИСКИ?</span>
               </h2>
               <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Каждый месяц — новые чеки. Midjourney, Sora, Runway, ChatGPT... Счетчики тикают, генерации заканчиваются, а кошелек пустеет.
+                Каждый месяц — новые чеки. Мидджорни, Сора, Ранвей, ЧатГПТ... Счетчики тикают, генерации заканчиваются, а кошелек пустеет.
               </p>
               <div className="space-y-5">
                 {[ "Генерировать фото и видео БЕСПЛАТНО", "Никаких скрытых платежей", "Секретные платформы без счетчиков", "Свобода творчества навсегда" ].map((item, i) => (
@@ -257,7 +257,7 @@ const Home: React.FC = () => {
                  <input type="text" required placeholder="Ваше имя" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold text-white placeholder:text-gray-600" />
                </div>
                <div className="relative">
-                 <input type="email" required placeholder="Ваш E-mail" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold text-white placeholder:text-gray-600" />
+                 <input type="email" required placeholder="Ваша Эл. почта" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 outline-none focus:ring-2 focus:ring-fuchsia-500 transition-all text-lg font-bold text-white placeholder:text-gray-600" />
                </div>
                
                {/* ЧЕКБОКС СОГЛАСИЯ */}
@@ -319,10 +319,10 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
             <Sparkles className="text-fuchsia-500 w-8 h-8" />
-            <span className="text-2xl font-black tracking-tighter uppercase">VIP <span className="text-fuchsia-500">AI-COMMUNITY</span></span>
+            <span className="text-2xl font-black tracking-tighter uppercase">ВИП <span className="text-fuchsia-500">ИИ-СООБЩЕСТВО</span></span>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-gray-600 text-xs font-bold tracking-widest uppercase mt-10 pt-10 border-t border-white/5">
-             <div className="order-2 md:order-1">&copy; {new Date().getFullYear()} VIP AI-COMMUNITY.</div>
+             <div className="order-2 md:order-1">&copy; {new Date().getFullYear()} ВИП ИИ-СООБЩЕСТВО.</div>
              <div className="flex flex-col md:flex-row gap-6 order-1 md:order-2 items-center">
                 <Link to="/offer" className="hover:text-fuchsia-500 transition-colors">Публичная оферта</Link>
                 <Link to="/privacy" className="hover:text-blue-500 transition-colors">Политика конфиденциальности</Link>

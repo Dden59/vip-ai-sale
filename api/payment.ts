@@ -1,4 +1,3 @@
-
 export const config = {
   runtime: 'edge',
 };
@@ -40,10 +39,10 @@ export default async function handler(req: Request) {
           type: 'redirect',
           return_url: returnUrl,
         },
-        description: description || 'Обучение AI-COMMUNITY',
+        description: description || 'Обучение ВИП ИИ-СООБЩЕСТВО',
         metadata: {
-          name: String(metadata?.name || 'Guest'),
-          email: String(metadata?.email || 'No email')
+          name: String(metadata?.name || 'Гость'),
+          email: String(metadata?.email || 'Нет почты')
         },
         receipt: {
           customer: {
@@ -51,7 +50,7 @@ export default async function handler(req: Request) {
           },
           items: [
             {
-              description: description || 'Обучение AI-COMMUNITY',
+              description: description || 'Обучение ВИП ИИ-СООБЩЕСТВО',
               quantity: "1.00",
               amount: {
                 value: String(amount),
