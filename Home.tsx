@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: "1490.00", 
+          amount: "3490.00", 
           description: `Обучение ВИП ИИ-СООБЩЕСТВО: ${formData.email}`,
           metadata: { name: formData.name, email: formData.email }
         }),
@@ -136,7 +136,7 @@ const Home: React.FC = () => {
           <div className="flex flex-col items-center gap-6">
             <div className="glass-card px-8 py-4 rounded-2xl border-fuchsia-500/30 glow-accent-box animate-pulse">
                <span className="text-gray-400 line-through text-lg mr-3">5.000₽</span>
-               <span className="text-3xl font-black text-white">1490₽</span>
+               <span className="text-3xl font-black text-white">3490₽</span>
                <div className="text-[10px] uppercase tracking-tighter text-fuchsia-400 font-bold mt-1">Осталось 7 мест по этой цене</div>
             </div>
             <a href="#join" className="group relative px-12 py-6 bg-gradient-to-r from-blue-600 to-fuchsia-600 text-white rounded-2xl font-black text-2xl hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_30px_rgba(217,70,239,0.5)] active:scale-95">
@@ -235,7 +235,7 @@ const Home: React.FC = () => {
             <div className="glass-card p-8 md:p-12 rounded-[2rem] border-fuchsia-500/20 text-center relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">
                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-fuchsia-600/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                <p className="text-xl md:text-2xl font-bold text-gray-200 mb-0">
-                  Стоимость ВСЕГО <span className="text-fuchsia-500 font-black text-3xl mx-2">1490 рублей</span> за полноценное обучение 
+                  Стоимость ВСЕГО <span className="text-fuchsia-500 font-black text-3xl mx-2">3490 рублей</span> за полноценное обучение 
                </p>
                <p className="text-gray-400 mt-4 text-lg">
                   и доступы к приватным бесплатным сайтам, где можно генерировать бесконечное количество фото и видео

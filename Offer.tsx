@@ -42,7 +42,7 @@ const Offer: React.FC = () => {
 
             <section>
               <h3 className="text-xl font-bold text-white mb-4 uppercase tracking-wider">3. Порядок оплаты и возврат средств</h3>
-              <p className="mb-2">3.1. Стоимость услуг составляет 1.490 рублей.</p>
+              <p className="mb-2">3.1. Стоимость услуг составляет 3.490 рублей.</p>
               <div className="p-4 border-l-4 border-red-500 bg-red-500/10 rounded-r-xl">
                 <p className="font-bold text-white">3.2. ПРАВИЛО ОТМЕНЫ И ВОЗВРАТА:</p>
                 <p className="text-sm mt-1 opacity-90">В соответствии со ст. 421 ГК РФ и спецификой предоставления цифрового контента, денежные средства, уплаченные Заказчиком, ВОЗВРАТУ НЕ ПОДЛЕЖАТ после предоставления доступа к учебным материалам.</p>
